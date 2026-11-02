@@ -38,3 +38,13 @@ python -m pytest -v
 ## Project Status
 
 This is an educational design project and is not a clinically validated diagnostic tool.
+
+## Session 5 Wire Diagram
+
+This diagram shows the proposed workflow of the AI agentic system for early detection and management of heart disease.
+
+It begins with patient data collection, followed by data de-identification and verification. Incomplete records are handled before further processing.
+
+The system then uses KMeans clustering to group similar patient profiles. The results support risk assessment, clinician review, and follow-up monitoring.
+
+![Session 5 Wire Diagram](docs/wire_diagram.png)
