@@ -1,7 +1,5 @@
 # Session 8: GitHub Actions assignment evidence
 
-Verification date: 8 November 2026 (Africa/Nairobi).
-
 ## Repository inspection
 
 - Repository: `kemeishaellis/ai-heart-disease-early-detection`.
@@ -58,7 +56,7 @@ Workflow: [`.github/workflows/tests.yml`](.github/workflows/tests.yml), named `U
 | --- | --- |
 | Every push | Unfiltered `push` trigger |
 | Pull requests to default branch | `pull_request` with `branches: [main]` |
-| Weekly execution | `0 6 * * 1`: every Monday at 06:00 UTC / 09:00 Africa/Nairobi |
+| Weekly execution | `0 6 * * 1`: every Monday |
 | Manual execution | `workflow_dispatch` |
 | Runtime and installation | Ubuntu 24.04, Python 3.14, pip installs existing `requirements.txt` |
 | Complete suite and failure propagation | `python -m pytest -v`; no failure suppression or test exclusions |
