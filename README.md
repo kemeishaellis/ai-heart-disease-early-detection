@@ -1,5 +1,7 @@
 # AI Agentic Models for Early Detection and Management of Heart Disease
 
+[![Unit tests](https://github.com/kemeishaellis/ai-heart-disease-early-detection/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/kemeishaellis/ai-heart-disease-early-detection/actions/workflows/tests.yml?query=branch%3Amain)
+
 ## Project Overview
 
 This project explores how agentic AI models can support the early detection and management of heart disease, improve healthcare access, and reduce healthcare costs.
