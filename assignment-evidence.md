@@ -106,7 +106,7 @@ Correction message: `test: remove deliberate CI failure after demonstration`. Th
 
 The API credential reported read-only repository permissions, but subsequent Git HTTPS pushes succeeded. Both assignment branches are now published. The user created the pull requests through GitHub. No protection changes have been made by the agent.
 
-The `main` branch API reported `protected: false`; the protection-details endpoint returned HTTP 404. Required checks do **not currently protect main** according to the observed branch state. This assignment's merge-blocking requirement remains incomplete until an administrator configures and verifies it.
+The user saved a protection rule for `main`. The branch API now reports `protected: true`. After deliberate failure commit `b1a41dd8b9acbd86e208d469dfefee80b5c714bf`, both automated runs failed and PR #4's API reported `mergeable_state: blocked`. The user's screenshot shows both failed checks marked **Required** and a disabled **Merge pull request** button. This verifies that failing required tests prevented merging into `main`. The protection-details endpoint remains unavailable to the API credential (HTTP 404); individual rule settings were not read through that endpoint.
 
 | Remote evidence | Result |
 | --- | --- |
@@ -114,22 +114,21 @@ The `main` branch API reported `protected: false`; the protection-details endpoi
 | Failed workflow run URL | [Deliberate failure on push](https://github.com/kemeishaellis/ai-heart-disease-early-detection/actions/runs/42527740163) and [on pull request](https://github.com/kemeishaellis/ai-heart-disease-early-detection/actions/runs/42528626417): both completed with failure for `3e0af06` |
 | Recovery workflow run URL | Correction `6a8fe1a`: [push run](https://github.com/kemeishaellis/ai-heart-disease-early-detection/actions/runs/42529943153) and [PR run](https://github.com/kemeishaellis/ai-heart-disease-early-detection/actions/runs/42529947114) both completed successfully |
 | Pull request URL | [CI setup PR #3](https://github.com/kemeishaellis/ai-heart-disease-early-detection/pull/3) and [demonstration PR #4](https://github.com/kemeishaellis/ai-heart-disease-early-detection/pull/4), both open |
-| Failed required checks block merging | Not configured or demonstrated remotely |
+| Failed required checks block merging | Verified for `b1a41dd` on PR #4: [failed PR run](https://github.com/kemeishaellis/ai-heart-disease-early-detection/actions/runs/42537726653), [failed push run](https://github.com/kemeishaellis/ai-heart-disease-early-detection/actions/runs/42537723115); API state `blocked` and user screenshot showing required failures and disabled merge button |
+| Recovery after protected-branch demonstration | Correction `0c4d9fadf0b595f64169fc17693960ebaf31de04` removed the temporary failure; 14 passed locally, exit 0; [PR run](https://github.com/kemeishaellis/ai-heart-disease-early-detection/actions/runs/42538030244) and [push run](https://github.com/kemeishaellis/ai-heart-disease-early-detection/actions/runs/42538026704) both completed successfully |
 | Actual weekly run | Not observed |
 
-The user supplied a screenshot of PR #4 showing failed push and pull-request checks. The merge button remained visible; this is evidence that CI detected the failure, not evidence of enforced merge blocking. The correction was then pushed as a normal fast-forward update. No PR has been merged or branch deleted.
+The initial failure and recovery demonstrated CI detection before protection was configured. After the user saved protection, a new commit (`b1a41dd`, `test: demonstrate failing required check after protecting main`) restored the same temporary assertion. Both GitHub runs failed. The user captured the required-check failures and disabled merge button. Only after that evidence was captured, correction `0c4d9fa` (`test: restore passing suite after protected-branch demonstration`) removed the temporary file and was pushed normally. All original tests remain unchanged. No PR has been merged or branch deleted.
 
 Automatic approval review rejected a credential-authenticated validator download from an unrelated repository. The stated concern was unauthorized credential use for a public download. Validation was completed using a public download without credentials; no approval is needed for that completed alternative.
 
 ## Remaining manual steps (repository writer / administrator)
 
-1. Finish the GitHub authentication/2FA prompt and save protection: repository **Settings > Branches > Add classic branch protection rule**, branch name pattern `main`. Enable **Require a pull request before merging**, **Require status checks to pass before merging**, select **Unit tests (Python 3.14)** from GitHub Actions, and enable **Require branches to be up to date before merging**. Enable **Do not allow bypassing the above settings** so administrators are also covered. Leave required approvals off for this solo assignment. Keep force pushes and deletions disabled. Save and verify the rule.
-2. To demonstrate enforced merge blocking after protection is saved, add a new temporary intentional failing test on the demonstration branch, commit and push normally, and capture its failed required check and blocked merge panel. Then remove the test in another commit and verify recovery. Do not reset the published branch or force-push to replay the old failure. This repeat is needed because the original failure was corrected before protection was enabled.
-3. Capture the recovery run and remaining screenshots below. Do not merge or delete the demonstration branch without the owner's approval.
-4. After the owner approves merging CI setup PR #3, verify the `main` badge and a successful `main` run. Confirm manual dispatch is available. After the Monday schedule executes, record its actual run URL and `schedule` event. Do not claim weekly execution before observing it.
-5. Update the protection and schedule evidence above with the observed results.
+1. Capture the final recovery run and remaining screenshots below. Keep the blocked-merge screenshot already supplied by the user. Do not merge or delete the demonstration branch without the owner's approval.
+2. After the owner approves merging CI setup PR #3, verify the `main` badge and a successful `main` run. Confirm manual dispatch is available. After the Monday schedule executes, record its actual run URL and `schedule` event. Do not claim weekly execution before observing it.
+3. Add the final badge and schedule evidence when available.
 
-The repository is public, and the user's GitHub settings page confirms its Free plan can enforce protection here. Protection is pending the user's authentication and saving the rule; no plan restriction has been established.
+The repository is public, and the user's GitHub settings page confirms its Free plan can enforce protection here. Protection is now saved and merge blocking has been demonstrated.
 
 ## Submission screenshot checklist
 
