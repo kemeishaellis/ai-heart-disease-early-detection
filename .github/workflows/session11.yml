@@ -21,7 +21,7 @@ jobs:
           python-version: '3.12'
       - name: Install test dependency
         run: python -m pip install pytest==9.0.3
-      - name: Test synthetic workflow
-        run: python -m pytest test_session11_workflow.py -v
+      - name: Test all twelve Session 11 component contracts and end-to-end behavior
+        run: python -m pytest test_session11_workflow.py test_session11_component_contracts.py -v -ra
       - name: Run synthetic workflow end to end
         run: python session11_workflow.py
